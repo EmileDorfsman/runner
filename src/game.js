@@ -71,6 +71,7 @@ function create() {
       this.anims.pauseAll();
       this.input.on('pointerup', () => {
         this.scene.restart();
+        this.anims.resumeAll();
       })
   })
 
