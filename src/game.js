@@ -16,7 +16,7 @@ function preload() {
   this.load.image('grass', platform1, { frameWidth: 795, frameHeight: 85 })
   this.load.spritesheet('boxer', sprite2, { frameWidth: 114.5, frameHeight: 144 })
   this.load.spritesheet('door', sprite3, { frameWidth: 190, frameHeight: 200})
-  this.load.spritesheet('dead', image1, {frameWidth: 468, frameHeight: 220})
+  this.load.spritesheet('dead', image1, {frameWidth: 468, frameHeight: 475})
 }
 
 
@@ -98,6 +98,7 @@ function create() {
     gameState.active = false;
     this.anims.pauseAll();
     gameState.enemy.move.stop();
+    gameState.player.visible = false;
       
       this.input.on('pointerup', () => {
         this.anims.resumeAll();
@@ -107,7 +108,7 @@ function create() {
 
     gameState.enemy.move = this.tweens.add({
       targets: gameState.enemy,
-      x: 320,
+      x: Phaser.Math.Between(100, 400),
       ease: 'Linear',
       duration: 1800,
       repeat: -1,
