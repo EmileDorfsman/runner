@@ -3,6 +3,7 @@ import sprite1 from "./assets/walkspritesheet.png";
 import platform1 from "./assets/platform.png";
 import sprite2 from "./assets/oldguyenemy.png";
 import sprite3 from "./assets/door.png";
+import image1 from "./assets/deadsprite.png";
 
 const gameWidth = 795;
 const gameHeight = 600;
@@ -15,6 +16,7 @@ function preload() {
   this.load.image('grass', platform1, { frameWidth: 795, frameHeight: 85 })
   this.load.spritesheet('boxer', sprite2, { frameWidth: 114.5, frameHeight: 144 })
   this.load.spritesheet('door', sprite3, { frameWidth: 190, frameHeight: 200})
+  this.load.spritesheet('dead', image1, {frameWidth: 468, frameHeight: 220})
 }
 
 
@@ -25,6 +27,7 @@ function create() {
 
   gameState.active = true;
   gameState.player = this.physics.add.sprite(30, 300, 'boy').setScale(0.38);
+  
 
   this.physics.add.collider(gameState.player, this.platforms);
   gameState.player.setCollideWorldBounds(true);
@@ -66,6 +69,7 @@ function create() {
 
   this.physics.add.overlap(gameState.player, gameState.enemy, () => {
     this.add.text(150, 50, '      Game Over...\n  Click to play again.', { fontFamily: 'Arial', fontSize: 36, color: '#ffffff' });
+    gameState.player.setTexture('dead', 0)
       this.physics.pause();
       gameState.active = false;
       this.anims.pauseAll();
@@ -79,7 +83,7 @@ function create() {
   gameState.exitdoor = this.physics.add.sprite(900, 450, 'door').setScale(0.75);
   
   this.physics.add.collider(gameState.exitdoor, this.platforms);
-  gameState.exitdoor.setCollideWorldBounds(true);
+  gameState.exitdoor.setCollideWorldBounds(true)
 
   this.anims.create({
     key: 'door idle',
