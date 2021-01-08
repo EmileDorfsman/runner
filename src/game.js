@@ -9,14 +9,13 @@ const gameWidth = 795;
 const gameHeight = 600;
 const gameState = {};
 
-
 function preload() {
 
   this.load.spritesheet('boy', sprite1, { frameWidth: 196, frameHeight: 475 })
   this.load.image('grass', platform1, { frameWidth: 795, frameHeight: 85 })
   this.load.spritesheet('boxer', sprite2, { frameWidth: 114.5, frameHeight: 144 })
-  this.load.spritesheet('door', sprite3, { frameWidth: 190, frameHeight: 200})
-  this.load.spritesheet('dead', image1, {frameWidth: 468, frameHeight: 475})
+  this.load.spritesheet('door', sprite3, { frameWidth: 190, frameHeight: 200 })
+  this.load.spritesheet('dead', image1, { frameWidth: 468, frameHeight: 475 })
 }
 
 
@@ -27,7 +26,7 @@ function create() {
 
   gameState.active = true;
   gameState.player = this.physics.add.sprite(30, 300, 'boy').setScale(0.38);
-  
+
 
   this.physics.add.collider(gameState.player, this.platforms);
   gameState.player.setCollideWorldBounds(true);
@@ -70,24 +69,24 @@ function create() {
   this.physics.add.overlap(gameState.player, gameState.enemy, () => {
     this.add.text(150, 50, '      Game Over...\n  Click to play again.', { fontFamily: 'Arial', fontSize: 36, color: '#ffffff' });
     gameState.player.setTexture('dead', 0)
-      this.physics.pause();
-      gameState.active = false;
-      this.anims.pauseAll();
-      this.input.on('pointerup', () => {
-        this.scene.restart();
-        this.anims.resumeAll();
-      })
+    this.physics.pause();
+    gameState.active = false;
+    this.anims.pauseAll();
+    this.input.on('pointerup', () => {
+      this.scene.restart();
+      this.anims.resumeAll();
+    })
   })
 
 
   gameState.exitdoor = this.physics.add.sprite(900, 450, 'door').setScale(0.75);
-  
+
   this.physics.add.collider(gameState.exitdoor, this.platforms);
   gameState.exitdoor.setCollideWorldBounds(true)
 
   this.anims.create({
     key: 'door idle',
-    frames: this.anims.generateFrameNumbers('door', { start:0, end: 1}),
+    frames: this.anims.generateFrameNumbers('door', { start: 0, end: 1 }),
     frameRate: 1,
     repeat: -1
   });
@@ -99,22 +98,21 @@ function create() {
     this.anims.pauseAll();
     gameState.enemy.move.stop();
     gameState.player.visible = false;
-      
-      this.input.on('pointerup', () => {
-        this.anims.resumeAll();
-        this.scene.restart();
-      })
+
+    this.input.on('pointerup', () => {
+      this.anims.resumeAll();
+      this.scene.restart();
     })
+  })
 
-    gameState.enemy.move = this.tweens.add({
-      targets: gameState.enemy,
-      x: Phaser.Math.Between(100, 400),
-      ease: 'Linear',
-      duration: 1800,
-      repeat: -1,
-      yoyo: true
-    });
-
+  gameState.enemy.move = this.tweens.add({
+    targets: gameState.enemy,
+    x: Phaser.Math.Between(150, 400),
+    ease: 'Linear',
+    duration: 1800,
+    repeat: -1,
+    yoyo: true
+  });
 
 }
 
@@ -162,7 +160,6 @@ let config = {
     create,
     update
   }
-
 };
 
 const game = new Phaser.Game(config);
